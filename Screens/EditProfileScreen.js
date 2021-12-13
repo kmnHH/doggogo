@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from'react';
-import{  View, Text, Image, StyleSheet, Button, Alert, TextInput } from'react-native';   
-import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';  
+import{  View, Text, Image, StyleSheet, Button, TextInput } from'react-native';   
 import * as firebase from 'firebase' 
 import DropDownPicker from 'react-native-dropdown-picker';  
-import { getAuth } from "firebase/auth";
-import { getDatabase, ref, onValue} from "firebase/database";
-import {getDogInfo} from '../components/DogInfoApi'
 
+
+const imageUri = {uri: 'https://cdn.pixabay.com/photo/2021/05/09/10/54/dalmatian-6240488_1280.jpg'}; 
 
 export default function EditProfileScreen( {navigation }) {
     const auth = firebase.default.auth()
@@ -18,13 +16,13 @@ export default function EditProfileScreen( {navigation }) {
     })
     
     useEffect(() => {
-        getDoggis();
+        getDog();
         return () => {
-            setDog({}); // This worked for me
+            setDog({}); 
         };
       }, []);
     
-      function getDoggis(){
+      function getDog(){
         var dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/doginfo');
         dogRef.on('value', (snapshot) => {
           const data = snapshot.val();
@@ -48,7 +46,7 @@ export default function EditProfileScreen( {navigation }) {
         <View style={{alignItems: 'center', justifyContent: 'center'}} > 
         <Image style={{  width:200, height:255, alignItems: 'center',
                 justifyContent: 'center', borderRadius: 150}}
-                source={{  uri: 'https://cdn.pixabay.com/photo/2021/05/09/10/54/dalmatian-6240488_1280.jpg'}}  />
+                source={imageUri}  />
         <Text style={{padding: 20}}>Muuta koirasi tietoja </Text>    
         <Text>Koiran nimi</Text>
         <TextInput style={{padding: 10}}
@@ -103,31 +101,4 @@ const styles = StyleSheet.create({
             setItems={setItems}
         /> 
         
-        <TextInput style={{padding: 10}}
-            placeholder = 'Anna koiran nimi'
-            label = 'Nimi'  
-            onChangeText={(text) => setDog({ ...dog, name: text})} 
-            value={dog.name} 
-            autoCapitalize="none"
-        />  
-
-
-
-
-
-
-        <Text>Syntymäpäivä</Text>
-        <TextInput style={{padding: 10}}
-            placeholder = 'Anna koiran syntymäpäivä'
-            label = 'Syntymäpäivä'  
-            onChangeText={(text) => setEditedDog({...editedDog, birthdate: text})}
-            value={editedDog.birthdate} 
-        />   
-        <Text>Rotu</Text>
-        <TextInput style={{padding: 10}}
-            placeholder = 'Anna koiran rotu'
-            label = 'Sukupuoli'  
-            onChangeText={(text) => seteditedDog({...editedDog, breed: text})}
-            value={editedDog.breed} 
-        />   
         */

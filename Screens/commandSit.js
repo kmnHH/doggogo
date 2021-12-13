@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Alert, AppRegistry, ScrollView, SafeAreaView } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import * as firebase from 'firebase';
 import { Button } from "react-native-paper";
 import { getSitPoints } from '../components/PointsAPI';
 import { Button as IosButton} from 'react-native-ios-kit';
 import { Icon } from 'react-native-ios-kit';
 
-const Tab = createBottomTabNavigator();
+
 AppRegistry.registerComponent('IosFonts', () => IosFonts);
 const sitUri = {uri: 'https://cdn.pixabay.com/photo/2017/08/18/16/13/dog-2655464_1280.jpg'}; 
 

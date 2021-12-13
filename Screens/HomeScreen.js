@@ -1,14 +1,8 @@
 
 import React from 'react';
-import { ImageBackground, View, Text, Image, StyleSheet, Alert } from 'react-native';
+import { ImageBackground, View, Text, StyleSheet, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import ProfileScreen from './ProfileScreen';
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import { Icon } from 'react-native-elements'
-import { Ionicons } from '@expo/vector-icons';
+import firebase from 'firebase/app';
 import { Button } from "react-native-paper";
 
 const Tab = createBottomTabNavigator();

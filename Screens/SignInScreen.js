@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, ImageBackground, Alert } from 'react-native';
-import ButtonO from './ButtonO';
+import ButtonO from '../components/ButtonO';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import ProfileScreen from './ProfileScreen';
-
 
 
 export default function SignInScreen({ navigation }) {
@@ -32,39 +30,20 @@ export default function SignInScreen({ navigation }) {
     const user = firebase
       .auth()
       .createUserWithEmailAndPassword(email.value, password.value)
-    /*firebase.auth().currentUser.updateProfile({
-      displayName: 'nyyh',
-    }) */
     console.log('yritan');
     Alert.alert('Rekisteröinti onnistui! Voit nyt kirjautua sisään.')
     return setReadyUser(user);
 
   }
 
-
-  /*const onPressRegister = ({ email, password}) => {
-    console.log(email.value);
-    firebase.auth().createUserWithEmailAndPassword(email.value, 'testitesti') 
-    firebase.auth().currentUser.updateProfile({
-        displayName: 'nyyh',
-      })
-    .then(() => {
-        navigation.navigate('HomeScreen'); 
-      })
-     .catch((error) => { 
-       var errorMessage = error.message;   
-       return Alert.alert(errorMessage);
-     } )
-  }*/
-
   return (
     <View style={styles.container}>
       <ImageBackground style={{ alignItems: 'center', justifyContent: 'center', width: '95%', height: '95%', marginLeft: '5%' }}
         source={{ uri: 'https://cdn.pixabay.com/photo/2017/02/16/19/47/bokeh-2072271_1280.jpg' }}>
         <View style={styles.inputView}>
-          <Text style={{ margin: 20 }}>Sposti</Text>
+          <Text style={{ margin: 20, fontWeight: 'bold', color: 'white' }}>Sähköposti</Text>
           <TextInput style={styles.TextInput}
-            placeholder='Anna sposti'
+            placeholder='Anna sähköposti'
             label='Sposti'
             returnKeyType="next"
             onChangeText={(text) => setEmail({ value: text, error: '' })}
@@ -76,7 +55,7 @@ export default function SignInScreen({ navigation }) {
             textContentType="emailAddress"
             keyboardType="email-address"
           />
-          <Text>Salasana</Text>
+          <Text style={{ margin: 20, fontWeight: 'bold', color: 'white' }}>Salasana</Text>
           <TextInput style={styles.TextInput}
             placeholder='Anna salasana'
             label='Salasana'

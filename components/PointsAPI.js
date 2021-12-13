@@ -1,30 +1,19 @@
 import * as firebase from 'firebase';
 import { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
-
-
-function getPoints(dogRef) {
-    const [y, setY] = useState(0);
-    dogRef.on('value', (snapshot) => {
-        var data = snapshot.val();
-        setY(data);
-    });
-    var result = y;
-    return result;
-
-}
-
-function checkRef(command) {
+/*export const getCommandPoints = ({navigation}) => {
+    //const navigation = useNavigation(); 
     const auth = firebase.default.auth()
     const user = auth.currentUser;
-    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + command);
-
-    let fetchedData = getPoints(dogRef);
-    console.log('tas fetched ' + fetchedData);
-
-    return fetchedData;
-}
-
+    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/sit');
+    dogRef.on('value', (snapshot) => {
+        var data = snapshot.val();
+        console.log('tassa taa data nyt viel ' + data)
+        navigation.navigate('Basic', {data})
+    });
+    
+}*/ 
 export const getSitPoints = async () => {
     const auth = firebase.default.auth()
     const user = auth.currentUser;

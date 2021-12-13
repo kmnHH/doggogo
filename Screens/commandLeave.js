@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Alert, AppRegistry, ScrollView, SafeAreaView } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { View, Text, Image, StyleSheet, AppRegistry, ScrollView, SafeAreaView } from 'react-native';
 import * as firebase from 'firebase';
 import { Button } from "react-native-paper";
 import { Button as IosButton} from 'react-native-ios-kit';
 import { getLeavePoints } from '../components/PointsAPI';
 
-
-const Tab = createBottomTabNavigator();
 AppRegistry.registerComponent('IosFonts', () => IosFonts);
 const leaveUri = {uri: 'https://cdn.pixabay.com/photo/2017/10/30/08/12/dog-2901704_1280.jpg'}; 
 
