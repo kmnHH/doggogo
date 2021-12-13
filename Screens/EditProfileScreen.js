@@ -41,14 +41,14 @@ export default function EditProfileScreen( {navigation }) {
     } 
 
     return(
-        <View>
+        <View style={{paddingTop: 30}}>
          {dog.name != undefined && dog.birthdate != undefined && dog.breed != undefined &&   
         <View style={{alignItems: 'center', justifyContent: 'center'}} > 
         <Image style={{  width:200, height:255, alignItems: 'center',
                 justifyContent: 'center', borderRadius: 150}}
                 source={imageUri}  />
-        <Text style={{padding: 20}}>Muuta koirasi tietoja </Text>    
-        <Text>Koiran nimi</Text>
+        <Text style={{padding: 10, fontWeight: 'bold'}}>Muuta koirasi tietoja </Text>    
+        <Text style={{padding: 10, fontWeight: 'bold'}}>Koiran nimi</Text>
         <TextInput style={{padding: 10}}
             placeholder = {dog.name}
             label = 'Nimi'  
@@ -56,14 +56,14 @@ export default function EditProfileScreen( {navigation }) {
             value={dog.name} 
             autoCapitalize="none"
         />  
-        <Text>Syntymäpäivä</Text>
+        <Text style={{padding: 10, fontWeight: 'bold'}}>Syntymäpäivä</Text>
         <TextInput style={{padding: 10}}
             placeholder = {dog.birthdate}
             label = 'Syntymäpäivä'  
             onChangeText={(text) => setDog({...dog, birthdate: text})}
             value={dog.birthdate} 
         />   
-        <Text>Rotu</Text>
+        <Text style={{padding: 10, fontWeight: 'bold'}}>Rotu</Text>
         <TextInput style={{padding: 10}}
             placeholder = {dog.breed}
             label = 'Sukupuoli'  

@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from'react';
-import{  View, Text, Image, StyleSheet, Button} from'react-native';   
+import{  View, Text, Image, StyleSheet, Button, ImageBackground, ScrollView, SafeAreaView} from'react-native';   
 import * as firebase from 'firebase' 
 import DropDownPicker from 'react-native-dropdown-picker';  
 
-
+const logo = { uri: 'https://i.ibb.co/Xj7db5g/Doggogo-logo.png' };
 const imageUri = {uri: 'https://cdn.pixabay.com/photo/2021/05/09/10/54/dalmatian-6240488_1280.jpg'}; 
 
 export default function ProfileScreen( {navigation, route }) {
@@ -45,27 +45,36 @@ export default function ProfileScreen( {navigation, route }) {
     
     return(
       <View>
-        {dog.name != undefined && dog.birthdate != undefined && dog.breed != undefined &&
-          <View style={{alignItems: 'center', justifyContent: 'center'}} > 
-          <Image style={styles.image} source={imageUri}/>
-          <Text style={{padding: 20, fontWeight: 'bold'}}>Tervetuloa {user.email} </Text>    
-            <View style={styles.doginfo}>
-              <Text style={{fontWeight: 'bold'}}>Koiran nimi</Text>
-              <Text> {dog.name} </Text> 
-            </View>
-            <View style={styles.doginfo}>
-              <Text style={{fontWeight: 'bold'}}>Syntymäpäivä</Text>
-              <Text> {dog.birthdate} </Text>
-            </View>
-            <View style={styles.doginfo}>
-              <Text style={{fontWeight: 'bold'}}>Rotu</Text>
-              <Text> {dog.breed} </Text>
-            </View>
-            <Button title='Muuta tietoja'
-              onPress={() => navigation.navigate('ProfileEdit')}> 
-            </Button>
-          </View> }
-        </View>
+         <View style={{ marginBottom: 30 }}>
+            <ImageBackground source={logo} resizeMode="cover" style={{ justifyContent: "center", height: 100, width: 375, backgroundColor: 'white' }}/>
+          </View>
+          <SafeAreaView style={styles.safeArea}>
+            <ScrollView>
+              {dog.name != undefined && dog.birthdate != undefined && dog.breed != undefined &&
+              <View style={{alignItems: 'center', justifyContent: 'center'}} > 
+                <Image style={styles.image} source={imageUri}/>
+                <Text style={{padding: 20, fontWeight: 'bold'}}>Tervetuloa {user.email} </Text>    
+                <View style={styles.doginfo}>
+                  <Text style={{fontWeight: 'bold'}}>Koiran nimi</Text>
+                  <Text> {dog.name} </Text> 
+                </View>
+                <View style={styles.doginfo}>
+                  <Text style={{fontWeight: 'bold'}}>Syntymäpäivä</Text>
+                  <Text> {dog.birthdate} </Text>
+                </View>
+                <View style={styles.doginfo}>
+                  <Text style={{fontWeight: 'bold'}}>Rotu</Text>
+                  <Text> {dog.breed} </Text>
+                </View>
+                <View style={{paddingBottom: 290}}>
+                  <Button title='Muuta tietoja' 
+                    onPress={() => navigation.navigate('ProfileEdit')}> 
+                  </Button>
+                </View>
+              </View> } 
+            </ScrollView>
+          </SafeAreaView>
+      </View>
     );
 };
 

@@ -108,7 +108,7 @@ export default function BasicSkills({ navigation }) {
         case 2:
             return (
 
-                <View style={{ justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white', flex: 1 }}>
+                <View style={{ justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'linen', flex: 1 }}>
                     <View style={{ width: '100%', padding: 10, paddingTop: 20, backgroundColor: 'white' }}>
                         <Button icon='chevron-left' style={{ paddingRight: 250 }}
                             onPress={() => navigation.navigate('Home')}>
