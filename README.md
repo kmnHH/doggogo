@@ -18,7 +18,7 @@
 
 ## DoggoGo in a nutshell
 
-* This application is created for every dog owner who wants update their skills to train their dog better and get some results effectively. Every user can create their own account and save data from their training lessons. The idea is to start with easier exercises and open new levels when user has successfully gained enough points for the next level.
+* This application is created for every dog owner who wants to update their skills to train their dog better and get some results effectively. Every user can create their own account and save data from their training lessons. The idea is to start with easier exercises and open new levels when user has successfully gained enough points for the next level.
 * The application uses Firebase as database and for user authentication
 * The repository for application [here](https://github.com/kmnHH/doggogo) on GitHub
 
