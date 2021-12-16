@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { ImageBackground, View, Text, StyleSheet, Alert, ScrollView, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import firebase from 'firebase/app';
 import { Button } from "react-native-paper";
+import { getCommandPoints } from '../components/PointsAPI';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,8 +26,20 @@ export default function HomeScreen({ navigation }) {
             })
     }
 
+    const getPoints = async () => {
+        const sitPoints = await getCommandPoints('sit');
+        const comePoints = await getCommandPoints('come');
+        const leavePoints = await getCommandPoints('leave');
+    }
+
+    useEffect(() => {
+        getPoints();
+       
+    }, []);
+
+
     return (
-        <View style={{ justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'linen', flex: 1 }}>
+        <View style={{ justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white', flex: 1 }}>
             <View style={{ marginBottom: 30 }}>
                 <ImageBackground source={logo} resizeMode="cover" style={{ justifyContent: "center", height: 100, width: 360, backgroundColor: 'white' }}>
                 </ImageBackground>
@@ -66,7 +79,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     safeArea: {
-        backgroundColor: 'linen',
+        backgroundColor: 'white',
         justifyContent: 'flex-start', 
         alignItems: 'center', 
         marginBottom: 40

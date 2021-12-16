@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Alert, AppRegistry, ScrollView, SafeAreaView } from 'react-native';
 import * as firebase from 'firebase';
 import { Button } from "react-native-paper";
-import { getSitPoints } from '../components/PointsAPI';
+import { getCommandPoints } from '../components/PointsAPI';
 import { Button as IosButton} from 'react-native-ios-kit';
 import { Icon } from 'react-native-ios-kit';
 
@@ -24,7 +24,7 @@ export default function commandSit({ navigation }) {
     }, []);
 
     const getPoints = async () => {
-        const pointsData = await getSitPoints();
+        const pointsData = await getCommandPoints('sit');
         if (pointsData != null) {
             setPoints(pointsData);
         }
@@ -48,7 +48,7 @@ export default function commandSit({ navigation }) {
                     <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'center' }}>
                         <Image style={styles.image} source={sitUri}/>
                     </View>
-                    <View style={{ justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'cadetblue', marginBottom: 5, opacity: .7 }}>
+                    <View style={styles.title}>
                         <Text style={{ fontSize: 30, fontWeight: 'bold', fontFamily: 'Thonburi', color: 'white' }}>
                             ISTU
                         </Text>
@@ -92,6 +92,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start', 
         alignItems: 'center', 
         marginBottom: 40
+    },
+    title: {
+        justifyContent: 'flex-start', 
+        alignItems: 'center', 
+        backgroundColor: 'cadetblue', 
+        marginBottom: 5, 
+        opacity: .7
     },
     textBlue: {
         backgroundColor: 'cadetblue', 
@@ -145,14 +152,3 @@ const styles = StyleSheet.create({
 
 });
 
-//"chevron-back": 61960,
-/*<Button
-onPress={() => setPoints(points + 1)}> +
-</Button>
-
-<IosButton style={styles.button} rounded inverted
-                        onPress={() => saveItem()}> Lisää piste
-                        </IosButton>
-<View style={{backgroundColor: 'white', height: 70, width: 70, borderRadius: 70, position: 'sticky', marginBottom: -40}}></View>
-
-*/

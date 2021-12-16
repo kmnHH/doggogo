@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, Alert, AppRegistry } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Button } from "react-native-paper";
 import * as firebase from 'firebase';
-import { getSitPoints } from '../components/PointsAPI';
-import { getComePoints } from '../components/PointsAPI';
-import { getLeavePoints } from '../components/PointsAPI';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import { getCommandPoints } from '../components/PointsAPI';
 
-
-const Tab = createBottomTabNavigator();
 
 AppRegistry.registerComponent('IosFonts', () => IosFonts);
 
@@ -25,9 +18,9 @@ export default function BasicSkills({ navigation }) {
     const user = auth.currentUser;
     //const [points, setPoints] = useState(0); 
     const [group, setGroup] = useState(0);
-    const [sit, setSit] = useState('');
-    const [come, setCome] = useState('');
-    const [leave, setLeave] = useState('');
+    const [sit, setSit] = useState(0);
+    const [come, setCome] = useState(0);
+    const [leave, setLeave] = useState(0);
     const [alert, setAlert] = useState(false);
 
 
@@ -42,12 +35,11 @@ export default function BasicSkills({ navigation }) {
 
 
     const getPoints = async () => {
-        const sitPoints = await getSitPoints();
-        const comePoints = await getComePoints();
-        const leavePoints = await getLeavePoints();
+        const sitPoints = await getCommandPoints('sit');
+        const comePoints = await getCommandPoints('come');
+        const leavePoints = await getCommandPoints('leave');
 
-        console.log('tas sit ' + sitPoints);
-        console.log('tas come ' + comePoints);
+        //select which view case to use
         if (sitPoints < 10 || sitPoints == null) {
             setGroup(1);
             setAlert(true);
@@ -62,7 +54,7 @@ export default function BasicSkills({ navigation }) {
             setSit(sitPoints);
             setCome(comePoints);
         }
-        else if (sitPoints >= 10 && comePoints >= 10 && leavePoints >= 10) {
+        else if (leavePoints >= 10) {
             setGroup(4);
             setAlert(true);
             setSit(sitPoints);
@@ -96,8 +88,11 @@ export default function BasicSkills({ navigation }) {
                             show={alert}
                             title="Tervetuloa!"
                             subtitle="Harjoittele Istu-käskyä"
-                            useNativeDriver={true}>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: {sit}</Text>
+                            >
+                            { !sit ?   
+                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: Ei vielä pisteitä!</Text>
+                            : <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: {sit}</Text>
+                            }
                             <Text style={{ paddingLeft: '10%', paddingRight: '10%' }}> Valitse osio Istu ja tee toistot niin
                                 monta kertaa että saat kerrytettyä itsellesi vähintään 10 Istu-pistettä</Text>
                             <SCLAlertButton theme="info" onPress={() => setAlert(false)}>Selvä</SCLAlertButton>
@@ -140,7 +135,7 @@ export default function BasicSkills({ navigation }) {
                             title="Onnittelut!"
                             subtitle="Sait tarvittavan määrän Istu-pisteitä!"
                             useNativeDriver={true}>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: {sit}</Text>
+                            <Text style={styles.points}> Istu-pisteesi: {sit}</Text>
                             <Text style={{ paddingLeft: '10%', paddingRight: '10%' }}>
                                 Harjoittele seuraavaksi luokse tuloa kerryttämällä Tänne-pisteitäsi osiossa Tänne</Text>
                             <SCLAlertButton theme="success" onPress={() => setAlert(false)}>Selvä</SCLAlertButton>
@@ -191,8 +186,8 @@ export default function BasicSkills({ navigation }) {
                             title="Onnittelut!"
                             subtitle="Sait tarvittavan määrän Tänne-pisteitä!"
                             useNativeDriver={true}>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: {sit}</Text>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Tänne-pisteesi: {come}</Text>
+                            <Text style={styles.points}> Istu-pisteesi: {sit}</Text>
+                            <Text style={styles.points}> Tänne-pisteesi: {come}</Text>
                             <Text style={{ paddingLeft: '10%', paddingRight: '10%' }}>
                                 Harjoittele seuraavaksi irti päästämistä kerryttämällä Jätä-pisteitäsi osiossa Jätä</Text>
                             <SCLAlertButton theme="success" onPress={() => setAlert(false)}>Selvä</SCLAlertButton>
@@ -229,7 +224,7 @@ export default function BasicSkills({ navigation }) {
                     </View>
                     <View style={{ marginBottom: 10 }}>
                         <ImageBackground source={leaveUri} resizeMode="cover" style={styles.image}>
-                            <Button style={{ borderColor: 'black' }}
+                            <Button 
                                 onPress={() => navigation.navigate('Leave')}>
                                 <Text style={styles.commandText}>
                                     Jätä </Text>
@@ -242,10 +237,10 @@ export default function BasicSkills({ navigation }) {
                             show={alert}
                             title="Onnittelut!"
                             subtitle="Sait tarvittavan määrän pisteitä kaikkiin harjoituksiin!"
-                            slideAnimationDuration='300'>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Istu-pisteesi: {sit}</Text>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Tänne-pisteesi: {come}</Text>
-                            <Text style={{ paddingLeft: '30%', fontWeight: 'bold', marginBottom: 20 }}> Jätä-pisteesi: {leave}</Text>
+                            >
+                            <Text style={styles.points}> Istu-pisteesi: {sit}</Text>
+                            <Text style={styles.points}> Tänne-pisteesi: {come}</Text>
+                            <Text style={styles.points}> Jätä-pisteesi: {leave}</Text>
                             <Text style={{ paddingLeft: '10%', paddingRight: '10%' }}>
                                 Jatka harjoittelua aktiivisesti koirasi kanssa, etteivät taidot pääse ruostumaan!</Text>
                             <SCLAlertButton theme="success" onPress={() => setAlert(false)}>Selvä</SCLAlertButton>
@@ -286,6 +281,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    }, 
+    points: {
+        paddingLeft: '30%', 
+        fontWeight: 'bold',
+        marginBottom: 20
     }
 });
 
+/*onScroll={Animated.event(
+                                { useNativeDriver: true } // <-- Add this
+                              )}*/

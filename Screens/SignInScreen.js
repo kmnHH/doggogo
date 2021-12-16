@@ -4,19 +4,23 @@ import ButtonO from '../components/ButtonO';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+const imageUri = { uri: 'https://cdn.pixabay.com/photo/2017/02/16/19/47/bokeh-2072271_1280.jpg' };
+
 
 export default function SignInScreen({ navigation }) {
+  const auth = firebase.default.auth()
+  const user = auth.currentUser;
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-  const [loading, setLoading] = useState()
-  const [error, setError] = useState()
   const [readyUser, setReadyUser] = useState();
 
   const onPressSignIn = () => {
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).then(() => {
+      console.log('tsekkasin kayttajan');
       navigation.navigate('HomeScreen', {
         info: readyUser
       });
+
     })
       .catch((error) => {
         var errorCode = error.code;
@@ -30,7 +34,6 @@ export default function SignInScreen({ navigation }) {
     const user = firebase
       .auth()
       .createUserWithEmailAndPassword(email.value, password.value)
-    console.log('yritan');
     Alert.alert('Rekisteröinti onnistui! Voit nyt kirjautua sisään.')
     return setReadyUser(user);
 
@@ -38,8 +41,8 @@ export default function SignInScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground style={{ alignItems: 'center', justifyContent: 'center', width: '95%', height: '95%', marginLeft: '5%' }}
-        source={{ uri: 'https://cdn.pixabay.com/photo/2017/02/16/19/47/bokeh-2072271_1280.jpg' }}>
+      <ImageBackground style={styles.imageBack}
+        source={imageUri}>
         <View style={styles.inputView}>
           <Text style={{ margin: 20, fontWeight: 'bold', color: 'white' }}>Sähköposti</Text>
           <TextInput style={styles.TextInput}
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-
   },
 
   image: {
@@ -110,4 +112,11 @@ const styles = StyleSheet.create({
     width: '90%',
     padding: 20
   },
+  imageBack: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '95%',
+    height: '95%',
+    marginLeft: '5%'
+  }
 });

@@ -14,12 +14,12 @@ import { useNavigation } from '@react-navigation/native';
     });
     
 }*/ 
-export const getSitPoints = async () => {
+export const getCommandPoints = async (command) => {
     const auth = firebase.default.auth()
     const user = auth.currentUser;
     var x = 0;
 
-    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/sit');
+    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/' + command);
     dogRef.on('value', (snapshot) => {
         var data = snapshot.val();
         x = data;
@@ -27,28 +27,9 @@ export const getSitPoints = async () => {
     return x;
 }
 
-export const getComePoints = async () => {
-    const auth = firebase.default.auth()
-    const user = auth.currentUser;
-    var x = 0;
 
-    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/come');
-    dogRef.on('value', (snapshot) => {
-        var data = snapshot.val();
-        x = data;
-    });
-    return x;
-}
 
-export const getLeavePoints = async () => {
-    const auth = firebase.default.auth()
-    const user = auth.currentUser;
-    var x = 0;
 
-    const dogRef = firebase.database().ref('users/dog/doginfo' + user.uid + '/leave');
-    dogRef.on('value', (snapshot) => {
-        var data = snapshot.val();
-        x = data;
-    });
-    return x;
-}
+
+
+

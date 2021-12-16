@@ -17,8 +17,11 @@ export default function EditProfileScreen( {navigation }) {
     
     useEffect(() => {
         getDog();
+        //cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.
         return () => {
-            setDog({}); 
+            setDog({...dog, birthdate: '', 
+                breed: '',
+                name: ''}); 
         };
       }, []);
     

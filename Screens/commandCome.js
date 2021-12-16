@@ -3,10 +3,8 @@ import { View, Text, Image, StyleSheet, Alert, AppRegistry, ScrollView, SafeArea
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as firebase from 'firebase';
 import { Button } from "react-native-paper";
-import { getComePoints } from '../components/PointsAPI';
+import { getCommandPoints } from '../components/PointsAPI';
 
-
-const Tab = createBottomTabNavigator();
 AppRegistry.registerComponent('IosFonts', () => IosFonts);
 const sitUri = {uri: 'https://cdn.pixabay.com/photo/2019/12/11/19/55/dog-4689169_1280.jpg'}; 
 
@@ -24,7 +22,7 @@ export default function commandCome({ navigation }) {
     }, []);
 
     const getPoints = async () => {
-        const pointsData = await getComePoints();
+        const pointsData = await getCommandPoints('come');
         if (pointsData != null) {
             setPoints(pointsData);
         }
